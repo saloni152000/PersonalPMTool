@@ -1,46 +1,38 @@
 package com.saloni.ppmtool.domain;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.validation.constraints.NotBlank;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Entity
 public class ProjectTask {
-	
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	@Column(updatable = false, unique = true)
+    @Column(updatable = false, unique = true)
     private String projectSequence;
     @NotBlank(message = "Please include a project summary")
     private String summary;
     private String acceptanceCriteria;
     private String status;
     private Integer priority;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date dueDate;
     //ManyToOne with Backlog
-    
-    @ManyToOne(fetch = FetchType.EAGER) 
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="backlog_id", updatable = false, nullable = false)
     @JsonIgnore
     private Backlog backlog;
 
     @Column(updatable = false)
     private String projectIdentifier;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date create_At;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date update_At;
 
     public ProjectTask() {
@@ -103,14 +95,14 @@ public class ProjectTask {
     }
 
     public String getProjectIdentifier() {
-		return projectIdentifier;
-	}
+        return projectIdentifier;
+    }
 
-	public void setProjectIdentifier(String projectIdentifier) {
-		this.projectIdentifier = projectIdentifier;
-	}
+    public void setProjectIdentifier(String projectIdentifier) {
+        this.projectIdentifier = projectIdentifier;
+    }
 
-	public Date getCreate_At() {
+    public Date getCreate_At() {
         return create_At;
     }
 
@@ -126,16 +118,15 @@ public class ProjectTask {
         this.update_At = update_At;
     }
 
-    
     public Backlog getBacklog() {
-		return backlog;
-	}
+        return backlog;
+    }
 
-	public void setBacklog(Backlog backlog) {
-		this.backlog = backlog;
-	}
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
+    }
 
-	@PrePersist
+    @PrePersist
     protected void onCreate(){
         this.create_At = new Date();
     }

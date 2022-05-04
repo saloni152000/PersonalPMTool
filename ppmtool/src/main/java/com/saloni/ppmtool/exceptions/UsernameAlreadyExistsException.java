@@ -1,11 +1,13 @@
 package com.saloni.ppmtool.exceptions;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class ProjectNotFoundException extends RuntimeException {
-    public ProjectNotFoundException(String message) {
+public class UsernameAlreadyExistsException extends RuntimeException {
+
+    public UsernameAlreadyExistsException(String message) {
         super(message);
     }
 }

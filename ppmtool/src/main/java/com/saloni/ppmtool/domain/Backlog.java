@@ -1,24 +1,16 @@
 package com.saloni.ppmtool.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Backlog {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer PTSequence = 0;
@@ -30,10 +22,10 @@ public class Backlog {
     @JsonIgnore
     private Project project;
 
-    //OneToMany projecttasks
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
 
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
     private List<ProjectTask> projectTasks = new ArrayList<>();
+
 
 
     public Backlog() {
@@ -63,23 +55,21 @@ public class Backlog {
         this.projectIdentifier = projectIdentifier;
     }
 
-	public Project getProject() {
-		return project;
-	}
+    public Project getProject() {
+        return project;
+    }
 
-	public void setProject(Project project) {
-		this.project = project;
-	}
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
-	public List<ProjectTask> getProjectTasks() {
-		return projectTasks;
-	}
+    public List<ProjectTask> getProjectTasks() {
+        return projectTasks;
+    }
 
-	public void setProjectTasks(List<ProjectTask> projectTasks) {
-		this.projectTasks = projectTasks;
-	}
-    
-	
-    
+    public void setProjectTasks(List<ProjectTask> projectTasks) {
+        this.projectTasks = projectTasks;
+    }
+
+
 }
-
